@@ -9,11 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.PersonalityCalculator;
+
 
 @WebServlet(urlPatterns= {"/personality"})
 public class PersonalityViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    PersonalityCalculator pc = new PersonalityCalculator();   
 
     public PersonalityViewController() {
         super();
@@ -33,27 +35,24 @@ public class PersonalityViewController extends HttpServlet {
 		String options=request.getParameter("selectedOptions");
 		
 		System.out.println(options);
-				
-		/* 
-
-		request.setAttribute("message", message);
 		
-		if(message!=null)
-		{
-			if(message.equals("rightbrained")) {
-				RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/views/rightBrainView.jsp");
-				rd.forward(request, response);
-			}
-			else if(message.equals("leftbrained")) {
-				RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/views/leftBrainView.jsp");
-				rd.forward(request, response);
-			}
-			else {
-				RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/views/neutralView.jsp");
-				rd.forward(request, response);
-			}
+		pc=new PersonalityCalculator();
+		String message =pc.findYourBrainType(options);
 		
-		}*/
+		  
+		  request.setAttribute("message", message);
+		  
+		  if(message!=null) { if(message.equals("rightbrained")) { RequestDispatcher
+		  rd=this.getServletContext().getRequestDispatcher(
+		  "/WEB-INF/views/rightBrainView.jsp"); rd.forward(request, response); } else
+		  if(message.equals("leftbrained")) { RequestDispatcher
+		  rd=this.getServletContext().getRequestDispatcher(
+		  "/WEB-INF/views/leftBrainView.jsp"); rd.forward(request, response); } else {
+		  RequestDispatcher rd=this.getServletContext().getRequestDispatcher(
+		  "/WEB-INF/views/neutralView.jsp"); rd.forward(request, response); }
+		  
+		  }
+		 
 		}
 	}
 
